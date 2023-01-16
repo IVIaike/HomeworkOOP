@@ -7,6 +7,18 @@ public class Car {
     private int releaseYear;
     private String country;
 
+    public Car() {
+    }
+
+    public Car(String brand, String model, double engineVolume, String color, int releaseYear, String country) {
+        this.brand = brand;
+        this.model = model;
+        this.engineVolume = engineVolume;
+        this.color = color;
+        this.releaseYear = releaseYear;
+        this.country = country;
+    }
+
     public String getBrand() {
         return brand;
     }
