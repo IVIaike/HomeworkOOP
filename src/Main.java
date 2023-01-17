@@ -2,7 +2,7 @@ public class Main {
     public static void main(String[] args) {
 
         Car car1 = new Car ();
-        car1.setBrand("lada");
+        car1.setBrand("Lada");
         car1.setModel("Granta");
         car1.setEngineVolume(1.7);
         car1.setColor("желтый");
@@ -46,6 +46,7 @@ public class Main {
         Car car8 = new Car("BMW", "Z8", 3.0, "черный", 2021, "Германия");
         Car car9 = new Car("KIA", "Sportage 4th generation", 2.4, "красный", 2018, "Южная корея");
         Car car10 = new Car("Hyundai", "Avante", 1.6, "оранжевый", 2016, "Южная корея");
+        Car car11 = new Car("", "", 0, ";tknsq", 2010," ");
 
         System.out.println(car1);
         System.out.println(car2);
@@ -57,6 +58,7 @@ public class Main {
         System.out.println(car8);
         System.out.println(car9);
         System.out.println(car10);
+        System.out.println(car11);
 
     }
 }

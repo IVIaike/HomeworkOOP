@@ -4,19 +4,50 @@ public class Car {
     private String model;
     private double engineVolume;
     private String color;
-    private int releaseYear;
+    private Integer releaseYear;
     private String country;
 
     public Car() {
     }
 
-    public Car(String brand, String model, double engineVolume, String color, int releaseYear, String country) {
-        this.brand = brand;
-        this.model = model;
-        this.engineVolume = engineVolume;
-        this.color = color;
-        this.releaseYear = releaseYear;
-        this.country = country;
+    public Car(String brand, String model, double engineVolume, String color, Integer releaseYear, String country) {
+        this.brand = validateCarParameters(brand);
+        this.model = validateCarParameters(model);
+        this.engineVolume = validateEngineVolume(engineVolume);
+        this.color = validateCarColor(color);
+        this.releaseYear = validateReleaseYear(releaseYear);
+        this.country = validateCarParameters(country);
+    }
+
+    public static double validateEngineVolume(double value) {
+        if (value <= 0) {
+            return 1.5;
+        }
+        return value;
+    }
+
+    public static int validateReleaseYear (Integer value) {
+        if (value == 0) {
+            return 2000;
+        }
+        return value;
+    }
+
+    public static String validateCarParameters (String value) {
+        return validateString(value, "default");
+    }
+
+    public static String validateString(String value, String defaultValue) {
+        if (value == null || value.isBlank() || value.isEmpty()) {
+            return defaultValue;
+        }
+        return value;
+    }
+    public static String validateCarColor (String value) {
+        if (value == null || value.isBlank() || value.isEmpty()) {
+            return "белый";
+        }
+        return value;
     }
 
     public String getBrand() {
@@ -28,7 +59,7 @@ public class Car {
         return "Автомобиль - " +
                 "производитель: " + brand +
                 ", модель: " + model +
-                ", объем двигателяЖ " + engineVolume +
+                ", объем двигателя: " + engineVolume +
                 ", цвет: " + color +
                 ", год выпуска: " + releaseYear +
                 ", страна производитель: " + country + ".";
