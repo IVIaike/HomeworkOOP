@@ -10,13 +10,12 @@ public class Car {
     private String transmissionType;
     private final String bodyType;
     private String registrationNumber;
-    private final int seatsNumber;
-    boolean summerWheels;
+    private final Integer seatsNumber;
+    boolean isSummerWheels;
+    Key key;
 
-    public Car() {
-    }
 
-    public Car(String brand, String model, double engineVolume, String color, Integer releaseYear, String country) {
+    public Car(String brand, String model, double engineVolume, String color, Integer releaseYear, String country, Key key) {
         this.brand = validateCarParameters(brand);
         this.model = validateCarParameters(model);
         this.engineVolume = validateEngineVolume(engineVolume);
@@ -26,8 +25,19 @@ public class Car {
         this.transmissionType = validateCarParameters(transmissionType);
         this.bodyType = validateCarParameters(bodyType);
         this.registrationNumber = validateRegistrationNumber(registrationNumber);
-        this.seatsNumber = validateSeatsNumber(summerWheels);
-        this.summerWheels = validateSummerWheels(summerWheels);
+        this.seatsNumber = validateSeatsNumber(seatsNumber);
+        this.isSummerWheels = isSummerWheels;
+    }
+
+    public class Key {
+        private String remoteEngineStart;
+        private String keylessAccess;
+
+        public Key(String remoteEngineStart, String keylessAccess) {
+            this.remoteEngineStart = remoteEngineStart;
+            this.keylessAccess = keylessAccess;
+        }
+
     }
 
     public static double validateEngineVolume(double value) {
@@ -59,6 +69,18 @@ public class Car {
             return "белый";
         }
         return value;
+    }
+
+    public static int validateSeatsNumber (Integer value) {
+        if (value == 0) {
+            return 5;
+        }
+        return value;
+    }
+
+    public static boolean validateSummerWheels (boolean value) {
+        boolean isSummerWheel = true;
+
     }
 
     public String getBrand() {
