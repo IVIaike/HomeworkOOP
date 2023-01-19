@@ -1,11 +1,17 @@
+package transport;
 public class Car {
 
-    private String brand;
-    private String model;
+    private final String brand;
+    private final String model;
     private double engineVolume;
     private String color;
-    private Integer releaseYear;
-    private String country;
+    private final Integer releaseYear;
+    private final String country;
+    private String transmissionType;
+    private final String bodyType;
+    private String registrationNumber;
+    private final int seatsNumber;
+    boolean summerWheels;
 
     public Car() {
     }
@@ -17,6 +23,11 @@ public class Car {
         this.color = validateCarColor(color);
         this.releaseYear = validateReleaseYear(releaseYear);
         this.country = validateCarParameters(country);
+        this.transmissionType = validateCarParameters(transmissionType);
+        this.bodyType = validateCarParameters(bodyType);
+        this.registrationNumber = validateRegistrationNumber(registrationNumber);
+        this.seatsNumber = validateSeatsNumber(summerWheels);
+        this.summerWheels = validateSummerWheels(summerWheels);
     }
 
     public static double validateEngineVolume(double value) {
@@ -65,16 +76,8 @@ public class Car {
                 ", страна производитель: " + country + ".";
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
     public String getModel() {
         return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
     }
 
     public double getEngineVolume() {
@@ -97,15 +100,8 @@ public class Car {
         return releaseYear;
     }
 
-    public void setReleaseYear(int releaseYear) {
-        this.releaseYear = releaseYear;
-    }
-
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
 }
