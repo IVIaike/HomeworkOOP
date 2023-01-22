@@ -1,4 +1,7 @@
 package transport;
+
+import java.util.regex.Pattern;
+
 public class Car {
 
     private final String brand;
@@ -15,30 +18,59 @@ public class Car {
     Key key;
 
 
-    public Car(String brand, String model, double engineVolume, String color, Integer releaseYear, String country, Key key) {
+    public Car(String brand,
+               String model,
+               double engineVolume,
+               String color,
+               Integer releaseYear,
+               String country,
+               String transmissionType,
+               String bodyType,
+               String registrationNumber,
+               Integer seatsNumber,
+               boolean isSummerWheels,
+               Key key) {
         this.brand = validateCarParameters(brand);
         this.model = validateCarParameters(model);
         this.engineVolume = validateEngineVolume(engineVolume);
         this.color = validateCarColor(color);
         this.releaseYear = validateReleaseYear(releaseYear);
         this.country = validateCarParameters(country);
-        this.transmissionType = validateCarParameters(transmissionType);
+        this.transmissionType = validateTransmissionType(transmissionType);
         this.bodyType = validateCarParameters(bodyType);
         this.registrationNumber = validateRegistrationNumber(registrationNumber);
         this.seatsNumber = validateSeatsNumber(seatsNumber);
         this.isSummerWheels = isSummerWheels;
     }
 
-    public class Key {
-        private String remoteEngineStart;
-        private String keylessAccess;
+    public static class Key {
+        private final boolean remoteEngineStart;
+        private final boolean keylessAccess;
 
-        public Key(String remoteEngineStart, String keylessAccess) {
-            this.remoteEngineStart = remoteEngineStart;
-            this.keylessAccess = keylessAccess;
+        public Key(Boolean remoteEngineStart, Boolean keylessAccess) {
+            this.remoteEngineStart = validateBoolean(remoteEngineStart);
+            this.keylessAccess = validateBoolean(keylessAccess);
         }
 
+        public Boolean validateBoolean (Boolean value) {
+            return value != null && value;
+        }
+
+        @Override
+        public String toString() {
+            return "Система доступа. Удаленный запуск двигателя: " + remoteEngineStart + ", доступ без ключа: " + keylessAccess + ".";
+        }
+
+        public boolean isRemoteEngineStart() {
+            return remoteEngineStart;
+        }
+
+        public boolean isKeylessAccess() {
+            return keylessAccess;
+        }
     }
+
+    //validation region - start
 
     public static double validateEngineVolume(double value) {
         if (value <= 0) {
@@ -72,20 +104,36 @@ public class Car {
     }
 
     public static int validateSeatsNumber (Integer value) {
-        if (value == 0) {
+        if (value == 0 || value == null) {
             return 5;
         }
         return value;
     }
 
-    public static boolean validateSummerWheels (boolean value) {
-        boolean isSummerWheel = true;
-
+    public static String validateTransmissionType (String value){
+        return (value.isBlank() || value.isEmpty() || value == null) ? " Автоматическая коробка передач" : value;
     }
 
-    public String getBrand() {
-        return brand;
+    public String validateRegistrationNumber(String registrationNumber) {
+        if (Pattern.matches("[авекм-ор-ух][0-9]{3}[авекм-ор-ух]{2}[0-9]{3}", registrationNumber)) {
+            return registrationNumber;
+        }
+        else{
+            return "Номер введен неверно!";
+        }
     }
+
+    public void changeTyres (int month) {
+        if (month >= 4 && month <= 10) {
+            isSummerWheels = true;
+        }
+        if ((month >=1 && month <=3) || (month >=11 && month <=12)) {
+            isSummerWheels = false;
+        }
+    }
+
+    //end of validation region
+
 
     @Override
     public String toString() {
@@ -95,30 +143,30 @@ public class Car {
                 ", объем двигателя: " + engineVolume +
                 ", цвет: " + color +
                 ", год выпуска: " + releaseYear +
-                ", страна производитель: " + country + ".";
+                ", страна производитель: " + country +
+                ", коробка передач: " + transmissionType +
+                ", тип кузова: " + bodyType +
+                ", регистрационный номер: " + registrationNumber +
+                ", число мест: " + seatsNumber +
+                ", летние колеса: " + isSummerWheels + ".";
     }
 
-    public String getModel() {
-        return model;
+
+//getters region start
+
+    public String getBrand() {
+        return brand;
     }
 
     public double getEngineVolume() {
         return engineVolume;
     }
 
-    public void setEngineVolume(double engineVolume) {
-        this.engineVolume = engineVolume;
-    }
-
     public String getColor() {
         return color;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public int getReleaseYear() {
+    public Integer getReleaseYear() {
         return releaseYear;
     }
 
@@ -126,4 +174,57 @@ public class Car {
         return country;
     }
 
+    public String getTransmissionType() {
+        return transmissionType;
+    }
+
+    public String getBodyType() {
+        return bodyType;
+    }
+
+    public String getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public Integer getSeatsNumber() {
+        return seatsNumber;
+    }
+
+    public boolean isSummerWheels() {
+        return isSummerWheels;
+    }
+
+    public Key getKey() {
+        return key;
+    }
+
+//getters region end
+
+    //setters region start
+
+    public void setEngineVolume(double engineVolume) {
+        this.engineVolume = engineVolume;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setTransmissionType(String transmissionType) {
+        this.transmissionType = transmissionType;
+    }
+
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
+    }
+
+    public void setSummerWheels(boolean summerWheels) {
+        isSummerWheels = summerWheels;
+    }
+
+    public void setKey(Key key) {
+        this.key = key;
+    }
+//setters region end
 }
+
