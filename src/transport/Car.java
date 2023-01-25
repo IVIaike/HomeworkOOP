@@ -2,14 +2,9 @@ package transport;
 
 import java.util.regex.Pattern;
 
-public class Car {
+public class Car extends Transport {
 
-    private final String brand;
-    private final String model;
     private double engineVolume;
-    private String color;
-    private final Integer releaseYear;
-    private final String country;
     private String transmissionType;
     private final String bodyType;
     private String registrationNumber;
@@ -29,15 +24,12 @@ public class Car {
                String registrationNumber,
                Integer seatsNumber,
                boolean isSummerWheels,
+               Integer maxSpeed,
                Key key) {
-        this.brand = validateCarParameters(brand);
-        this.model = validateCarParameters(model);
+        super(brand, model, releaseYear, country, color, maxSpeed);
         this.engineVolume = validateEngineVolume(engineVolume);
-        this.color = validateCarColor(color);
-        this.releaseYear = validateReleaseYear(releaseYear);
-        this.country = validateCarParameters(country);
         this.transmissionType = validateTransmissionType(transmissionType);
-        this.bodyType = validateCarParameters(bodyType);
+        this.bodyType = Transport.validateCarParameters(bodyType);
         this.registrationNumber = validateRegistrationNumber(registrationNumber);
         this.seatsNumber = validateSeatsNumber(seatsNumber);
         this.isSummerWheels = isSummerWheels;
@@ -79,13 +71,6 @@ public class Car {
         return value;
     }
 
-    public static int validateReleaseYear (Integer value) {
-        if (value == 0) {
-            return 2000;
-        }
-        return value;
-    }
-
     public static String validateCarParameters (String value) {
         return validateString(value, "default");
     }
@@ -93,12 +78,6 @@ public class Car {
     public static String validateString(String value, String defaultValue) {
         if (value == null || value.isBlank() || value.isEmpty()) {
             return defaultValue;
-        }
-        return value;
-    }
-    public static String validateCarColor (String value) {
-        if (value == null || value.isBlank() || value.isEmpty()) {
-            return "белый";
         }
         return value;
     }
@@ -138,12 +117,12 @@ public class Car {
     @Override
     public String toString() {
         return "Автомобиль - " +
-                "производитель: " + brand +
-                ", модель: " + model +
+                "производитель: " + getBrand() +
+                ", модель: " + getModel() +
                 ", объем двигателя: " + engineVolume +
-                ", цвет: " + color +
-                ", год выпуска: " + releaseYear +
-                ", страна производитель: " + country +
+                ", цвет: " + getColor() +
+                ", год выпуска: " + getReleaseYear() +
+                ", страна производитель: " + getCountry() +
                 ", коробка передач: " + transmissionType +
                 ", тип кузова: " + bodyType +
                 ", регистрационный номер: " + registrationNumber +
@@ -154,24 +133,8 @@ public class Car {
 
 //getters region start
 
-    public String getBrand() {
-        return brand;
-    }
-
     public double getEngineVolume() {
         return engineVolume;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public Integer getReleaseYear() {
-        return releaseYear;
-    }
-
-    public String getCountry() {
-        return country;
     }
 
     public String getTransmissionType() {
@@ -204,10 +167,6 @@ public class Car {
 
     public void setEngineVolume(double engineVolume) {
         this.engineVolume = engineVolume;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public void setTransmissionType(String transmissionType) {
