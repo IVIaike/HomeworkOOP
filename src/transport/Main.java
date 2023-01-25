@@ -16,6 +16,10 @@ public class Main {
         Car.Key keycar4 = new Car.Key(true,false);
         Car car5 = new Car("Hyundai", "Avante", 1.6, "оранжевый", 2016, "Южная корея", "", "седан", "x166fv177", 4, true, 168, new Car.Key(false,false));
         Car.Key keycar5 = new Car.Key(false,false);
+        Bus bus1 = new Bus("Ikarus", "Ikar", 2008, "Belarus", "Green", 95);
+        Bus bus2 = new Bus("Львив", "Л1", 2010, "Украина", "желтый", 89);
+        Bus bus3 = new Bus("Ssang Young", "Flying pigeon", 2014, "China", "Blue", 125);
+
 
         System.out.println(car1);
         System.out.println(keycar1);
@@ -27,5 +31,8 @@ public class Main {
         System.out.println(keycar4);
         System.out.println(car5);
         System.out.println(keycar5);
+        System.out.println(bus1);
+        System.out.println(bus2);
+        System.out.println(bus3);
     }
 }
